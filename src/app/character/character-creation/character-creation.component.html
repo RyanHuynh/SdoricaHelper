@@ -1,0 +1,27 @@
+<form class='character-creation-form' [formGroup]="characterForm" (ngSubmit)="_submitForm()">
+    <mat-form-field >
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter Character Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Position</mat-label>
+        <mat-select formControlName="position" name="position">          
+            <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Description" formControlName="description" name="description" rows="5"></textarea>
+    </mat-form-field>
+    <mat-tab-group formArrayName="skillSet">
+        <mat-tab *ngFor="let skill of characterForm.get('skillSet').controls; let i = index" [label]="skill.value.type">
+            <mat-form-field [formGroupName]="i">              
+                <textarea matInput name="skill" rows="5" formControlName="description"></textarea>
+            </mat-form-field>
+        </mat-tab>
+    </mat-tab-group>
+    <div class="btn-grp">
+        <button mat-raised-button>Cancel</button>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>    
+</form>
