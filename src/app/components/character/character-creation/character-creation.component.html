@@ -12,11 +12,18 @@
     <mat-form-field >
         <mat-label>Description</mat-label>
         <textarea matInput placeholder="Description" formControlName="description" name="description" rows="5"></textarea>
-    </mat-form-field>
-    <mat-tab-group formArrayName="skillSet">
-        <mat-tab *ngFor="let skill of characterForm.get('skillSet').controls; let i = index" [label]="skill.value.type">
-            <mat-form-field [formGroupName]="i">              
-                <textarea matInput name="skill" rows="5" formControlName="description"></textarea>
+    </mat-form-field>   
+    <mat-label>Available Tier</mat-label>
+    <section class="example-section">
+        <mat-checkbox *ngFor="let tier of tierList; let i = index" (change)="_updateAvailableTier($event)" checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" name={{tier}}>{{tier}}</mat-checkbox>        
+    </section> 
+    <mat-button-toggle-group (change)="_selectTier($event)" value={{selectedTier}}>
+        <mat-button-toggle  *ngFor="let tier of characterForm.get('availableTier').value; let i = index" value={{tier}}>{{tier}}</mat-button-toggle>       
+    </mat-button-toggle-group>
+    <mat-tab-group>
+        <mat-tab *ngFor="let skill of characterForm.get('skillSet').controls[selectedTier].controls; let i = index" [label]="skill.value.type">
+            <mat-form-field>              
+                <textarea matInput rows="5" (change)="_updateSkill($event)" name={{i}}></textarea>
             </mat-form-field>
         </mat-tab>
     </mat-tab-group>

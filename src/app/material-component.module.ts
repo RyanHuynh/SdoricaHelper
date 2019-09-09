@@ -4,7 +4,10 @@ import {
   MatInputModule,
   MatSelectModule,
   MatTabsModule,
-  MatButtonModule
+  MatButtonModule,
+  MatCheckboxModule,
+  MatButtonToggleModule,
+  MatDialogModule,
 } from '@angular/material';
 
 const modules = [
@@ -12,7 +15,10 @@ const modules = [
   MatInputModule,
   MatSelectModule,
   MatTabsModule,
-  MatButtonModule
+  MatButtonModule,
+  MatCheckboxModule,
+  MatButtonToggleModule,
+  MatDialogModule
 ];
 
 @NgModule({

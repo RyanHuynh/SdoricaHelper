@@ -1,0 +1,29 @@
+<form class='team-builder-form' [formGroup]="teamForm" (ngSubmit)="_submitForm()">
+    <mat-form-field >
+    <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter Team Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Team</mat-label>
+        <mat-select>          
+            <mat-option *ngFor="let c of whiteCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
+        </mat-select>
+        <mat-select>          
+            <mat-option *ngFor="let c of blackCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
+        </mat-select>
+        <mat-select>          
+            <mat-option *ngFor="let c of goldCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
+        </mat-select>
+        <mat-select>          
+            <mat-option *ngFor="let c of allCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Description" formControlName="description" name="description" rows="5"></textarea>
+    </mat-form-field>   
+    <div class="btn-grp">
+        <button mat-raised-button>Cancel</button>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>    
+</form>

@@ -1,0 +1,6 @@
+<button mat-raised-button color="primary" (click)="_addCharacter()">Add Character</button>
+<mat-tab-group>
+    <mat-tab *ngFor="let mode of modes" [label]="mode.name">
+        <button mat-raised-button color="primary" (click)="_addTeam()">Add Team</button>
+    </mat-tab>
+</mat-tab-group>

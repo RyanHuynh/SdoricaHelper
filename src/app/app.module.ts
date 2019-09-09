@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Module
 import { AppRoutingModule } from './app-routing.module';
@@ -10,15 +11,18 @@ import { FormsModule } from '@angular/forms';
 
 //Component 
 import { AppComponent } from './app.component';
-import { CharacterCreationComponent } from './character/character-creation/character-creation.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CharacterDetailComponent } from './character/character-detail/character-detail.component';
+import { CharacterCreationComponent } from './components/character/character-creation/character-creation.component';
+import { CharacterDetailComponent } from './components/character/character-detail/character-detail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TeamBuilderComponent } from './components/team/team-builder/team-builder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterCreationComponent,
-    CharacterDetailComponent
+    CharacterDetailComponent,
+    DashboardComponent,
+    TeamBuilderComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,7 @@ import { CharacterDetailComponent } from './character/character-detail/character
     MaterialComponentModule,
     FormsModule,
   ],
+  entryComponents: [CharacterCreationComponent, TeamBuilderComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
