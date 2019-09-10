@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { CharacterAPIService } from '../../../services/character-api.service';
+import { TeamAPIService } from '../../../services/team-api.service';
 
 @Component({
   selector: 'app-team-builder',
@@ -13,29 +14,22 @@ export class TeamBuilderComponent implements OnInit {
 
   constructor(
     private charService: CharacterAPIService, 
+    private teamService: TeamAPIService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TeamBuilderComponent>
   ) { }
   
   teamForm: FormGroup;
-  whiteCharacterOptions: Object[];
-  blackCharacterOptions: Object[];
-  goldCharacterOptions: Object[];
-  allCharacterOptions: Object[];
+  characterList = {
+    white: [],
+    black: [],
+    gold: [],
+  }
 
   ngOnInit() {
     this.teamForm = this._createForm();
-    this.charService.getCharacterList("white").subscribe(res => {
-      this.whiteCharacterOptions = res.data;
-    });
-    this.charService.getCharacterList("black").subscribe(res => {
-      this.blackCharacterOptions = res.data;
-    });
-    this.charService.getCharacterList("gold").subscribe(res => {
-      this.goldCharacterOptions = res.data;
-    });
     this.charService.getCharacterList("all").subscribe(res => {
-      this.allCharacterOptions = res.data;
+      this.characterList = res.data;
     });
   }
   onNoClick(): void {
@@ -46,16 +40,20 @@ export class TeamBuilderComponent implements OnInit {
       name: [""],
       mode: ["wonder"],
       team: this.fb.group({
-        white: "",
-        black: "",
-        gold: "",
-        advisor: "",
-        guildAdvisor: ""   
+        white: [""],
+        black: [""],
+        gold: [""],
+        advisor: [""],
+        guildAdvisor: [""]   
       }),
       description: [""],
     })
   }
   _submitForm() {
-
+    this.teamService.saveTeam(this.teamForm.value).subscribe(res => {
+      if (res.success) {
+        this.dialogRef.close(true);
+      }
+    })
   }
 }

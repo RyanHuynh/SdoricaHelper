@@ -1,9 +1,9 @@
 const uuidv1 = require('uuid/v1');
 class CharacterModel {
-    constructor(name, description, position, availableTier, skillSet, icon) {     
-        this.name = name;
-        this.description = description;
+    constructor(name, position, baseStat, availableTier, skillSet, icon) {     
+        this.name = name;    
         this.position = position;
+        this.baseStat = baseStat;
         this.availableTier = availableTier;
         this.skillSet = skillSet;
         this.icon = icon;

@@ -1,25 +1,32 @@
 <form class='character-creation-form' [formGroup]="characterForm" (ngSubmit)="_submitForm()">
     <mat-form-field >
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Enter Character Name" formControlName="name">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter Character Name" formControlName="name">
     </mat-form-field>
+
     <mat-form-field>
         <mat-label>Position</mat-label>
-        <mat-select formControlName="position" name="position">          
+        <mat-select formControlName="position">          
             <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
         </mat-select>
     </mat-form-field>
-    <mat-form-field >
-        <mat-label>Description</mat-label>
-        <textarea matInput placeholder="Description" formControlName="description" name="description" rows="5"></textarea>
-    </mat-form-field>   
-    <mat-label>Available Tier</mat-label>
+
+    <mat-label>Base Stat</mat-label>
+    <mat-form-field formGroupName="baseStat">      
+        <input matInput placeholder="Attack" formControlName="attack">
+    </mat-form-field>
+    <mat-form-field formGroupName="baseStat">      
+            <input matInput placeholder="HP" formControlName="hp">
+        </mat-form-field>
+
+     <mat-label>Available Tier</mat-label>
     <section class="example-section">
         <mat-checkbox *ngFor="let tier of tierList; let i = index" (change)="_updateAvailableTier($event)" checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" name={{tier}}>{{tier}}</mat-checkbox>        
     </section> 
     <mat-button-toggle-group (change)="_selectTier($event)" value={{selectedTier}}>
         <mat-button-toggle  *ngFor="let tier of characterForm.get('availableTier').value; let i = index" value={{tier}}>{{tier}}</mat-button-toggle>       
     </mat-button-toggle-group>
+
     <mat-tab-group>
         <mat-tab *ngFor="let skill of characterForm.get('skillSet').controls[selectedTier].controls; let i = index" [label]="skill.value.type">
             <mat-form-field>              
@@ -27,8 +34,9 @@
             </mat-form-field>
         </mat-tab>
     </mat-tab-group>
+
     <div class="btn-grp">
-        <button mat-raised-button>Cancel</button>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button type="button" mat-raised-button (click)="onNoClick()">Cancel</button>
+        <button type="submit" mat-raised-button color="primary">Submit</button>
     </div>    
 </form>

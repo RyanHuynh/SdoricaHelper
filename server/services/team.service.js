@@ -1,11 +1,7 @@
-const CharacterModel = require('../model/character.model');
-const DATASET = {
-    white: [],
-    black: [],
-    gold: [],
-};
+const TeamModel = require('../model/team.model');
+const DATASET = {};
 
-class CharacterService {
+class TeamService {
     static mock() {
         const numberCharPerPosition = 15;
         const position = ["white","black","gold"];
@@ -37,28 +33,24 @@ class CharacterService {
         }
     }
     static create(data) {
-        let character = new CharacterModel(
+        let team = new TeamModel(
+            data.mode,
             data.name,           
-            data.position,
-            data.baseStat,
-            data.availableTier,
-            data.skillSet, 
-            data.icon
+            data.team,
+            data.description,           
         );
-        DATASET[character.position].push(character);       
+        if (!Object.prototype.hasOwnProperty.call(DATASET, data.mode)) {
+            DATASET[team.mode] = [];console.log(1);
+        }
+        console.log(DATASET);
+        DATASET[team.mode].push(team);        console.log(DATASET);
         return true;
     }
-    static list(position) {    
-        if (position === "all") {
-            return {
-                success: true,
-                data: DATASET,
-            }
-        }
+    static list(mode) {         
         return {
-            data: { position: DATASET[position] },
+            data: DATASET[mode],
             success: true
         } 
     }
 }
-module.exports = CharacterService;
+module.exports = TeamService;

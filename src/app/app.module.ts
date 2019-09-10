@@ -15,6 +15,9 @@ import { CharacterCreationComponent } from './components/character/character-cre
 import { CharacterDetailComponent } from './components/character/character-detail/character-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TeamBuilderComponent } from './components/team/team-builder/team-builder.component';
+import { CharacterDashboardComponent } from './components/character/character-dashboard/character-dashboard.component';
+import { TeamDashboardComponent } from './components/team/team-dashboard/team-dashboard.component';
+import { CharacterTileComponent } from './components/character/character-dashboard/character-tile/character-tile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { TeamBuilderComponent } from './components/team/team-builder/team-builde
     CharacterCreationComponent,
     CharacterDetailComponent,
     DashboardComponent,
-    TeamBuilderComponent
+    TeamBuilderComponent,
+    CharacterDashboardComponent,
+    TeamDashboardComponent,
+    CharacterTileComponent
   ],
   imports: [
     BrowserModule,

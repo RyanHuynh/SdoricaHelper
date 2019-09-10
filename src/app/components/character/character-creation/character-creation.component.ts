@@ -44,7 +44,10 @@ export class CharacterCreationComponent implements OnInit {
     return this.fb.group({
       name: [''],
       position: [''],
-      description: [''],
+      baseStat: this.fb.group({
+        hp: [''],
+        attack: [''],
+      }),
       availableTier: [[...this.tierList]],
       skillSet: this.fb.group({...skillSet})
     })
@@ -88,7 +91,9 @@ export class CharacterCreationComponent implements OnInit {
   _submitForm() {
     const payload = this.characterForm.value;
     this.charService.saveCharacter(payload).subscribe((res) => {
-      console.log(res);
+      if (res.success) {
+        this.dialogRef.close(true);
+      }
     })
   }
 }

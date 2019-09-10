@@ -1,0 +1,19 @@
+.character-container {
+    background: lightblue;
+    display: flex;
+    padding: 10px;
+    margin: 10px 0;
+    .position-icon{
+        height: 300px;
+        width: 300px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .character-icon-container {    
+        display: flex;
+        flex-wrap: wrap;
+        character-tile {
+            margin: 2px;
+        }
+    }
+}

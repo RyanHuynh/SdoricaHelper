@@ -1,6 +1,9 @@
-<button mat-raised-button color="primary" (click)="_addCharacter()">Add Character</button>
-<mat-tab-group>
-    <mat-tab *ngFor="let mode of modes" [label]="mode.name">
-        <button mat-raised-button color="primary" (click)="_addTeam()">Add Team</button>
-    </mat-tab>
-</mat-tab-group>
+<mat-toolbar>
+    <span class="example-spacer"></span> 
+    <mat-button-toggle-group value={{selectedView}} (change)="_switchDashboardView($event)">
+        <mat-button-toggle value="character">Character</mat-button-toggle>
+        <mat-button-toggle value="team">Team</mat-button-toggle>
+    </mat-button-toggle-group>
+</mat-toolbar>
+<character-dashboard *ngIf="selectedView === 'character'"></character-dashboard>
+<team-dashboard *ngIf="selectedView === 'team'"></team-dashboard>

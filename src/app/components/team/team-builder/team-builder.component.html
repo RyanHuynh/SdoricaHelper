@@ -1,29 +1,44 @@
 <form class='team-builder-form' [formGroup]="teamForm" (ngSubmit)="_submitForm()">
     <mat-form-field >
-    <mat-label>Name</mat-label>
+        <mat-label>Name</mat-label>
         <input matInput placeholder="Enter Team Name" formControlName="name">
     </mat-form-field>
-    <mat-form-field>
-        <mat-label>Team</mat-label>
-        <mat-select>          
-            <mat-option *ngFor="let c of whiteCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
-        </mat-select>
-        <mat-select>          
-            <mat-option *ngFor="let c of blackCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
-        </mat-select>
-        <mat-select>          
-            <mat-option *ngFor="let c of goldCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
-        </mat-select>
-        <mat-select>          
-            <mat-option *ngFor="let c of allCharacterOptions" [value]="c.value">{{c.name}}</mat-option>            
-        </mat-select>
-    </mat-form-field>
+
+    <mat-label>Team</mat-label>
+    <div formGroupName="team">
+        <mat-form-field> 
+            <mat-label>White</mat-label>
+            <mat-select formControlName="white">          
+                <mat-option *ngFor="let c of characterList.white" [value]="c.name" >{{c.name}}</mat-option>            
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>  
+            <mat-label>Black</mat-label> 
+            <mat-select formControlName="black">          
+                <mat-option *ngFor="let c of characterList.black" [value]="c.name" >{{c.name}}</mat-option>            
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>     
+            <mat-label>Gold</mat-label>
+            <mat-select formControlName="gold">          
+                <mat-option *ngFor="let c of characterList.gold" [value]="c.name" >{{c.name}}</mat-option>            
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>  
+            <mat-label>Advisor</mat-label>
+            <mat-select formControlName="advisor">          
+                <mat-option *ngFor="let c of characterList.white.concat(characterList.black).concat(characterList.gold)" [value]="c.name">{{c.name}}</mat-option>            
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
     <mat-form-field >
         <mat-label>Description</mat-label>
         <textarea matInput placeholder="Description" formControlName="description" name="description" rows="5"></textarea>
     </mat-form-field>   
+    
     <div class="btn-grp">
-        <button mat-raised-button>Cancel</button>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button type="button" mat-raised-button>Cancel</button>
+        <button type="submit" mat-raised-button color="primary" >Submit</button>
     </div>    
 </form>

@@ -9,4 +9,8 @@ export interface ITeam {
         guildAdvisor?: string
     },
     description: string
+};
+export namespace teamEndpoint {
+    export const saveTeam = "api/team/save";
+    export const listTeam = "api/team/list";
 }

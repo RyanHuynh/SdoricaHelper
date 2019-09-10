@@ -9,7 +9,7 @@ import { IResponseObject } from '../models/common.model';
 export class CharacterAPIService {
     constructor(private http: HttpClient){}
     saveCharacter(character: ICharacter) {
-        return this.http.post(characterEndpoint.saveCharacter, character);
+        return this.http.post<IResponseObject>(characterEndpoint.saveCharacter, character);
     }
     getCharacterList(position: string){
         return this.http.get<IResponseObject>(characterEndpoint.listCharacter , {

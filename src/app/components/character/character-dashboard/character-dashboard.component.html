@@ -1,0 +1,39 @@
+<mat-toolbar>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Search..." [(ngModel)]="searchString">
+        <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    
+    <section>
+        <mat-checkbox [(ngModel)]="filter.white">White</mat-checkbox>
+        <mat-checkbox [(ngModel)]="filter.black">Black</mat-checkbox>
+        <mat-checkbox [(ngModel)]="filter.gold">Gold</mat-checkbox>
+    </section>
+
+    <button mat-flat-button color="primary" (click)="_createNew()">New</button>
+    <button mat-flat-button (click)="_changeEditMode()">Edit Mode</button>
+</mat-toolbar>
+<div *ngIf="editMode">On Edit Mode</div>
+
+<div class="character-container">
+    <div class="position-icon"><h1>WHITE</h1></div>
+    <div class="character-icon-container">
+        <character-tile *ngFor="let c of characterList.white" [data]="c"></character-tile>
+    </div>
+</div>
+
+<div class="character-container">
+    <div class="position-icon"><h1>BLACK</h1></div>
+    <div class="character-icon-container">
+        <character-tile *ngFor="let c of characterList.black" [data]="c"></character-tile>
+    </div>
+</div>
+
+<div class="character-container">
+    <div class="position-icon"><h1>GOLD</h1></div>
+    <div class="character-icon-container">
+        <character-tile *ngFor="let c of characterList.gold" [data]="c"></character-tile>
+    </div>
+</div>

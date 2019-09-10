@@ -26,8 +26,11 @@ export interface ISkill {
 
 export interface ICharacter {
     name: string;
-    position: string;
-    description: string;
+    position: string;  
+    baseStat: {
+        attack: string,
+        hp: string
+    },
     icon?: string, 
     availableTier: string[],
     skillSet: {

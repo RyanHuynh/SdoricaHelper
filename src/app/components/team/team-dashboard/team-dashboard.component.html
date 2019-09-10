@@ -1,0 +1,16 @@
+<button mat-flat-button color="primary" (click)="_createNewTeam()">Add New Team</button>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let team of teams">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{team.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+                <div>{{team.team.white}}</div>
+                <div>{{team.team.black}}</div>
+                <div>{{team.team.gold}}</div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        {{team.description}}
+    </mat-expansion-panel>
+</mat-accordion>

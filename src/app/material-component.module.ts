@@ -8,6 +8,10 @@ import {
   MatCheckboxModule,
   MatButtonToggleModule,
   MatDialogModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatTooltipModule,
+  MatExpansionModule,
 } from '@angular/material';
 
 const modules = [
@@ -18,7 +22,11 @@ const modules = [
   MatButtonModule,
   MatCheckboxModule,
   MatButtonToggleModule,
-  MatDialogModule
+  MatDialogModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatTooltipModule,
+  MatExpansionModule
 ];
 
 @NgModule({
