@@ -1,12 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "./_variable.scss";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background: #2f3542;
+}
+input, label, .mat-select-value-text, textarea{
+    font-size: 14px !important;
+}
+textarea {
+    padding: 10px;
+}
+.flex {
+    display: flex;
+}
 .btn-grp {
     display: flex;
-    button:not(:last-child) {
-        margin-right: 10px;
+    justify-content: flex-end;
+    button {
+        min-width: 100px;
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }  
+}
+.form-field {
+    height: 65.5px;
+    margin-bottom: 5px;
+}
+.form-label {
+    font-size: 11px !important;
+    color: $complement;
+    font-weight: 300;
+}
+.mat-dialog-container {
+    padding: 0 !important;
+    background-color: $altBackground;
+    color: $fontPrimary;
+    .mat-dialog-title {
+        display: block;
+        padding: 15px;
+        margin: 0;
+        background-color: $primary;
+        color: $fontPrimary;
     }
+    .mat-dialog-content {
+        padding: 15px;
+        margin: 0;
+    }
+    .mat-dialog-actions {
+        padding: 0 15px 15px;
+        margin: 0;
+    }
+}
+
+.mat-form-field {
+    .mat-select-value {
+        color: $fontPrimary;
+    }
+    .mat-input-element {
+        caret-color: $complement;
+    }
+    ::placeholder {
+        color: $inputPlaceholder;
+        opacity: 1;
+    }
+    .mat-form-field-label .ng-star-inserted {
+        color: $complement;
+    }    
+    .mat-form-field-underline, &.mat-focused .mat-form-field-ripple {
+        background-color: $complement;
+    }
+}
+
+.N-color { 
+    color: $NColor;
+}
+.R-color {
+    color: $RColor;
+}
+.SR-color {
+    color: $SRColor;
+}
+.SSR-color {
+    color: $SSRColor;
+}
+.Alt-color {
+    color: $AltColor;
 }

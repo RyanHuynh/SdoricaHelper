@@ -1,5 +1,84 @@
-.character-creation-form {
-    .mat-form-field {
-        width: 100%;
+@import '../../../../_variable.scss';
+
+.mat-dialog-container {
+    min-width: 900px;
+    .character-creation-form {
+        .mat-form-field {
+           flex: 1;       
+        }
+        .icon-info-wrapper {
+            display: flex;
+            .icon-section {
+                flex: 1;               
+                margin-right: 15px;
+                max-width: 520px;
+                img {
+                    width: 100%;                    
+                }
+            }
+            .info-section {
+                flex: 1;
+                .flex {
+                    .mat-form-field {
+                        margin-right: 10px;
+                        .mat-form-field-infix {
+                            width: initial;
+                        }
+                        .mat-form-field-prefix .mat-icon {
+                            font-size: 100%;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+                .basestat {
+                    img {
+                       vertical-align: middle;
+                    }
+                }
+                .tier-wrapper {
+                    margin-top: 10px;
+                    .mat-checkbox {
+                        margin-right: 15px;
+                        .mat-checkbox-label {
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }        
+        }  
+        .skill-section {
+            margin-top: 30px;
+            .mat-tab-body-content {
+                display: flex;
+                textarea {
+                    background-color: $textareaBackground;
+                    padding: 10px;
+                    box-sizing: border-box;
+                }
+                .mat-form-field-underline {
+                    display: none;
+                }
+                .mat-form-field-wrapper {
+                    padding: 0;
+                }            
+            }
+            .mat-tab-labels {
+                padding: 15px;
+                .mat-tab-label {
+                    min-width: 75px;
+                    padding: 15px;
+                    &:not(:focus){
+                        opacity: 0.4;
+                    }
+                    &.mat-tab-label-active {
+                        opacity: 1;
+                    }
+                    .mat-tab-label-content img {
+                        width: 70px;
+                        height: 70px;
+                    }
+                }  
+            }              
+        }  
     }
 }

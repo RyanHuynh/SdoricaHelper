@@ -15,7 +15,7 @@ export namespace characterMetaData {
         name: "Gold",
         value: "gold",
     }];
-    export const skillOptions = ["Passive", "One Orb", "Two Orb", "Four Orb", "Advisor"];
+    export const skillOptions = ["one", "two", "four", "passive", "advisor"];
     export const tierList = ["N", "R", "SR", "SSR", "Alt"];
 }
 
@@ -28,8 +28,9 @@ export interface ICharacter {
     name: string;
     position: string;  
     baseStat: {
-        attack: string,
-        hp: string
+        attack: number,
+        hp: number,
+        orb: number
     },
     icon?: string, 
     availableTier: string[],

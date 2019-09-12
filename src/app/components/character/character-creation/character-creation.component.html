@@ -1,42 +1,100 @@
-<form class='character-creation-form' [formGroup]="characterForm" (ngSubmit)="_submitForm()">
-    <mat-form-field >
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Enter Character Name" formControlName="name">
-    </mat-form-field>
+<h4 mat-dialog-title>Create New Character</h4>
 
-    <mat-form-field>
-        <mat-label>Position</mat-label>
-        <mat-select formControlName="position">          
-            <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
-        </mat-select>
-    </mat-form-field>
+<form class='character-creation-form' [formGroup]="characterForm" mat-dialog-content>
+    <div class=icon-info-wrapper>
+        <section class="icon-section">
+            <img src="../../../../assets/img/dylan.png" />
+        </section>
+        <section class="info-section">
+            <div class="flex">
+                <mat-form-field >
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Enter Character Name" formControlName="name">
+                </mat-form-field>
+            
+                <mat-form-field>
+                    <mat-label>Position</mat-label>
+                    <mat-select formControlName="position">          
+                        <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
+                    </mat-select>
+                </mat-form-field>
 
-    <mat-label>Base Stat</mat-label>
-    <mat-form-field formGroupName="baseStat">      
-        <input matInput placeholder="Attack" formControlName="attack">
-    </mat-form-field>
-    <mat-form-field formGroupName="baseStat">      
-            <input matInput placeholder="HP" formControlName="hp">
-        </mat-form-field>
+                <mat-form-field >
+                    <mat-label>Icon</mat-label>
+                    <input matInput placeholder="Icon Name" formControlName="icon">
+                </mat-form-field>
+            </div>           
+            
+            <div class="flex basestat">
+                <mat-form-field formGroupName="baseStat">  
+                    <mat-label>Base Stat</mat-label>    
+                    <input type="number" matInput placeholder="Attack" formControlName="attack">
+                    <img src="../../../../assets/img/atk.png" style="width: 20px" matSuffix />
+                </mat-form-field>
+                <mat-form-field formGroupName="baseStat">   
+                    <mat-label></mat-label>  
+                    <input type="number" matInput placeholder="HP" formControlName="hp">
+                    <img src="../../../../assets/img/hp.png" matSuffix />
+                </mat-form-field>
+                <mat-form-field formGroupName="baseStat">   
+                    <mat-label></mat-label>
+                    <input type="number" matInput placeholder="Orb" formControlName="orb">
+                    <img src="../../../../assets/img/orb.png" style="width: 21px" matSuffix />
+                </mat-form-field>
+            </div>  
+             
+            <section class="form-field">
+                <label class="form-label">Available Tier</label>   
+                <section class="tier-wrapper">              
+                    <mat-checkbox 
+                        *ngFor="let tier of tierList; let i = index" 
+                        (change)="_updateAvailableTier($event)" 
+                        checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" 
+                        name={{tier}}
+                        [ngClass]="tier + '-color'" 
+                    >
+                        {{tier}}
+                    </mat-checkbox>        
+                </section>          
+            </section>            
 
-     <mat-label>Available Tier</mat-label>
-    <section class="example-section">
-        <mat-checkbox *ngFor="let tier of tierList; let i = index" (change)="_updateAvailableTier($event)" checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" name={{tier}}>{{tier}}</mat-checkbox>        
-    </section> 
-    <mat-button-toggle-group (change)="_selectTier($event)" value={{selectedTier}}>
-        <mat-button-toggle  *ngFor="let tier of characterForm.get('availableTier').value; let i = index" value={{tier}}>{{tier}}</mat-button-toggle>       
-    </mat-button-toggle-group>
-
-    <mat-tab-group>
-        <mat-tab *ngFor="let skill of characterForm.get('skillSet').controls[selectedTier].controls; let i = index" [label]="skill.value.type">
-            <mat-form-field>              
-                <textarea matInput rows="5" (change)="_updateSkill($event)" name={{i}}></textarea>
-            </mat-form-field>
-        </mat-tab>
-    </mat-tab-group>
-
-    <div class="btn-grp">
-        <button type="button" mat-raised-button (click)="onNoClick()">Cancel</button>
-        <button type="submit" mat-raised-button color="primary">Submit</button>
-    </div>    
+            <div class="flex">
+                <mat-form-field >
+                    <mat-label>Level</mat-label>
+                    <input type="number" matInput [value]="level" name="level">
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-label>Exceed</mat-label>
+                    <input type="number" matInput [value]="exceed" name="exceed">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tier</mat-label>
+                    <mat-select (selectionChange)="_selectTier($event)" [value]="selectedTier">          
+                        <mat-option *ngFor="let tier of characterForm.get('availableTier').value; let i = index" [value]="tier">{{tier}}</mat-option>            
+                    </mat-select>
+                </mat-form-field>         
+            </div>               
+        </section>
+    </div>
+    
+    <section class="skill-section">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab 
+                *ngFor="let skill of characterForm.get('skillSet').controls[selectedTier].controls; let i = index" 
+                [label]="skill.value.type"               
+            >
+                <ng-template mat-tab-label>
+                    <img src="../../../../assets/img/{{skill.value.type}}.png" />
+                </ng-template>
+                <mat-form-field>              
+                    <textarea matInput rows="10" (change)="_updateSkill($event)" name={{i}} [value]="skill.value.description"></textarea>
+                </mat-form-field>
+            </mat-tab>
+        </mat-tab-group>
+    </section>     
 </form>
+
+<div class="btn-grp" mat-dialog-actions>
+    <button type="button" mat-flat-button (click)="onNoClick()">Cancel</button>
+    <button type="button" mat-flat-button color="primary" (click)="_submitForm()">Submit</button>
+</div>   

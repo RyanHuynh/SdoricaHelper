@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 //Module
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { CharacterTileComponent } from './components/character/character-dashboa
     BrowserAnimationsModule,
     MaterialComponentModule,
     FormsModule,
+    AngularFileUploaderModule,
   ],
   entryComponents: [CharacterCreationComponent, TeamBuilderComponent],
   providers: [],

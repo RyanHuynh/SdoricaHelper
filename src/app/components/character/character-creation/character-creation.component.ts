@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import _ from 'lodash';
@@ -9,7 +9,8 @@ import { CharacterAPIService } from '../../../services/character-api.service';
 @Component({
   selector: 'character-creation',
   templateUrl: './character-creation.component.html',
-  styleUrls: ['./character-creation.component.scss']
+  styleUrls: ['./character-creation.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CharacterCreationComponent implements OnInit {
 
@@ -18,7 +19,30 @@ export class CharacterCreationComponent implements OnInit {
   tierList = characterMetaData.tierList;
   characterForm: FormGroup;
   selectedTier: string = "N";
-
+  level: number = 1;
+  exceed: number = 0;
+  selectedTab: number = 0;
+  afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png",
+    maxSize: "1",
+    uploadAPI:  {
+      url:"https://example-file-upload-api",      
+    },
+    theme: "dragNDrop",
+    hideProgressBar: true,
+    hideResetBtn: true,
+    hideSelectBtn: true,
+    replaceTexts: {
+      selectFileBtn: 'Select Files',
+      resetBtn: 'Reset',
+      uploadBtn: 'Upload',
+      dragNDropBox: 'Drag N Drop',
+      attachPinBtn: 'Attach Files...',
+      afterUploadMsg_success: 'Successfully Uploaded !',
+      afterUploadMsg_error: 'Upload Failed !'
+    }
+  };
   constructor(
     private charService: CharacterAPIService, 
     private fb: FormBuilder,
@@ -44,9 +68,11 @@ export class CharacterCreationComponent implements OnInit {
     return this.fb.group({
       name: [''],
       position: [''],
+      icon: [''],
       baseStat: this.fb.group({
-        hp: [''],
-        attack: [''],
+        hp: [0],
+        attack: [0],
+        orb: [0],
       }),
       availableTier: [[...this.tierList]],
       skillSet: this.fb.group({...skillSet})
