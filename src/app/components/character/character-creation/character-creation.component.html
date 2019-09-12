@@ -1,10 +1,9 @@
 <h4 mat-dialog-title>Create New Character</h4>
-
 <form class='character-creation-form' [formGroup]="characterForm" mat-dialog-content>
     <div class=icon-info-wrapper>
-        <section class="icon-section">
+        <!-- <section class="icon-section">
             <img src="../../../../assets/img/dylan.png" />
-        </section>
+        </section> -->
         <section class="info-section">
             <div class="flex">
                 <mat-form-field >
@@ -38,8 +37,8 @@
                 </mat-form-field>
                 <mat-form-field formGroupName="baseStat">   
                     <mat-label></mat-label>
-                    <input type="number" matInput placeholder="Orb" formControlName="orb">
-                    <img src="../../../../assets/img/orb.png" style="width: 21px" matSuffix />
+                    <input type="number" matInput placeholder="Revive" formControlName="revive">
+                    <img src="../../../../assets/img/revive.png" style="width: 21px" matSuffix />
                 </mat-form-field>
             </div>  
              
@@ -73,7 +72,7 @@
                         <mat-option *ngFor="let tier of characterForm.get('availableTier').value; let i = index" [value]="tier">{{tier}}</mat-option>            
                     </mat-select>
                 </mat-form-field>         
-            </div>               
+            </div>
         </section>
     </div>
     

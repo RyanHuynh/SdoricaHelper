@@ -19,6 +19,7 @@ import { TeamBuilderComponent } from './components/team/team-builder/team-builde
 import { CharacterDashboardComponent } from './components/character/character-dashboard/character-dashboard.component';
 import { TeamDashboardComponent } from './components/team/team-dashboard/team-dashboard.component';
 import { CharacterTileComponent } from './components/character/character-dashboard/character-tile/character-tile.component';
+import { SkillRenderer } from './utils/character.util';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CharacterTileComponent } from './components/character/character-dashboa
     TeamBuilderComponent,
     CharacterDashboardComponent,
     TeamDashboardComponent,
-    CharacterTileComponent
+    CharacterTileComponent,
+    SkillRenderer
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,11 @@ import { CharacterTileComponent } from './components/character/character-dashboa
     FormsModule,
     AngularFileUploaderModule,
   ],
-  entryComponents: [CharacterCreationComponent, TeamBuilderComponent],
+  entryComponents: [
+    CharacterCreationComponent, 
+    CharacterDetailComponent,
+    TeamBuilderComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

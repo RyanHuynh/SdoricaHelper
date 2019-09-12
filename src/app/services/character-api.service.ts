@@ -13,7 +13,12 @@ export class CharacterAPIService {
     }
     getCharacterList(position: string){
         return this.http.get<IResponseObject>(characterEndpoint.listCharacter , {
-            params: {position}
+            params: { position }
+        });
+    }
+    getCharacter(id: string){
+        return this.http.get<IResponseObject>(characterEndpoint.getCharacter, {
+            params: { id }
         });
     }
 }

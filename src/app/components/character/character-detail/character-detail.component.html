@@ -1,1 +1,77 @@
-<p>character-detail works!</p>
+<div *ngIf="character">
+    <h4 mat-dialog-title>{{character.name}}</h4>
+
+    <form class='character-detail' mat-dialog-content>
+        <div class=icon-info-wrapper>
+            <!-- <section class="icon-section">
+                <img src="../../../../assets/img/dylan.png" />
+            </section> -->
+            <section class="info-section">
+                <div class="flex">
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput disabled [value]="character.name">
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                        <mat-label>Position</mat-label>
+                        <input matInput disabled [value]="character.position">
+                    </mat-form-field>                
+                </div>           
+                
+                <div class="flex">
+                    <mat-form-field >
+                        <mat-label>Level</mat-label>
+                        <input type="number" matInput [ngModel]="level" name="level" (ngModelChange)="_levelUpdated($event)">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Exceed</mat-label>
+                        <input type="number" matInput [ngModel]="exceed" name="exceed" (ngModelChange)="_exceedUpdated($event)">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Tier</mat-label>
+                        <mat-select (selectionChange)="_selectTier($event)" [value]="selectedTier">          
+                            <mat-option *ngFor="let tier of character.availableTier" [value]="tier">{{tier}}</mat-option>            
+                        </mat-select>
+                    </mat-form-field>         
+                </div>
+
+                <div class="flex basestat">
+                    <mat-form-field>  
+                        <mat-label>Stat</mat-label>    
+                        <input matInput disabled [value]="stat.attack">
+                        <img src="../../../../assets/img/atk.png" style="width: 20px" matSuffix />
+                    </mat-form-field>
+                    <mat-form-field>   
+                        <mat-label></mat-label>  
+                        <input matInput disabled [value]="stat.hp">
+                        <img src="../../../../assets/img/hp.png" matSuffix />
+                    </mat-form-field>
+                    <mat-form-field>   
+                        <mat-label></mat-label>
+                        <input matInput disabled [value]="character.baseStat.revive">
+                        <img src="../../../../assets/img/revive.png" style="width: 21px" matSuffix/>
+                    </mat-form-field>
+                </div>
+            </section>
+        </div>
+        
+        <section class="skill-section">
+            <mat-tab-group mat-align-tabs="center">
+                <mat-tab 
+                    *ngFor="let skill of character.skillSet[selectedTier]" 
+                    [label]="skill.type"               
+                >
+                    <ng-template mat-tab-label>
+                        <img src="../../../../assets/img/{{skill.type}}.png" />
+                    </ng-template>
+                    <div [innerHTML]="skill.description | skillRenderer:stat:level:exceed"></div>                  
+                </mat-tab>
+            </mat-tab-group>
+        </section>     
+    </form>
+
+    <div class="btn-grp" mat-dialog-actions>
+        <button type="button" mat-flat-button (click)="onNoClick()">Close</button>
+    </div> 
+</div>

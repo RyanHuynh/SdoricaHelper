@@ -1,9 +1,9 @@
-<mat-toolbar>
+<!-- <mat-toolbar>
     <span class="example-spacer"></span> 
     <mat-button-toggle-group value={{selectedView}} (change)="_switchDashboardView($event)">
         <mat-button-toggle value="character">Character</mat-button-toggle>
         <mat-button-toggle value="team">Team</mat-button-toggle>
     </mat-button-toggle-group>
-</mat-toolbar>
+</mat-toolbar> -->
 <character-dashboard *ngIf="selectedView === 'character'"></character-dashboard>
 <team-dashboard *ngIf="selectedView === 'team'"></team-dashboard>

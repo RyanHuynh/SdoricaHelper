@@ -1,9 +1,5 @@
 const CharacterModel = require('../model/character.model');
-const DATASET = {
-    white: [],
-    black: [],
-    gold: [],
-};
+const DATASET = [];
 
 class CharacterService {
     static mock() {
@@ -42,23 +38,40 @@ class CharacterService {
             data.position,
             data.baseStat,
             data.availableTier,
-            data.skillSet, 
+            data.skillSet,
+            data.tags,
             data.icon
         );
-        DATASET[character.position].push(character);       
+        DATASET.push(character);       
         return true;
     }
-    static list(position) {    
+    static list(position) {
         if (position === "all") {
             return {
                 success: true,
-                data: DATASET,
+                data: {
+                    white: DATASET.filter(c => c.position === "white"),
+                    black: DATASET.filter(c => c.position === "black"),
+                    gold: DATASET.filter(c => c.position === "gold")
+                },
             }
         }
         return {
-            data: { position: DATASET[position] },
+            data: { position:DATASET.filter(c => c.position === position) },
             success: true
         } 
+    }
+    static get(id) {
+        const character = DATASET.find(c => c.id === id);
+        if (character) {
+            return {
+                data: character,
+                success: true,
+            } 
+        }
+        return {
+            success: false
+        }
     }
 }
 module.exports = CharacterService;

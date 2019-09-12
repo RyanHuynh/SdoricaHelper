@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { characterMetaData } from '../../../models/character.model';
 import { CharacterAPIService } from '../../../services/character-api.service';
+import { getTagFromSkill } from '../../../utils/character.util';
 
 @Component({
   selector: 'character-creation',
@@ -21,28 +22,7 @@ export class CharacterCreationComponent implements OnInit {
   selectedTier: string = "N";
   level: number = 1;
   exceed: number = 0;
-  selectedTab: number = 0;
-  afuConfig = {
-    multiple: false,
-    formatsAllowed: ".jpg,.png",
-    maxSize: "1",
-    uploadAPI:  {
-      url:"https://example-file-upload-api",      
-    },
-    theme: "dragNDrop",
-    hideProgressBar: true,
-    hideResetBtn: true,
-    hideSelectBtn: true,
-    replaceTexts: {
-      selectFileBtn: 'Select Files',
-      resetBtn: 'Reset',
-      uploadBtn: 'Upload',
-      dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Attach Files...',
-      afterUploadMsg_success: 'Successfully Uploaded !',
-      afterUploadMsg_error: 'Upload Failed !'
-    }
-  };
+  selectedTab: number = 0;  
   constructor(
     private charService: CharacterAPIService, 
     private fb: FormBuilder,
@@ -72,10 +52,11 @@ export class CharacterCreationComponent implements OnInit {
       baseStat: this.fb.group({
         hp: [0],
         attack: [0],
-        orb: [0],
+        revive: [0],
       }),
       availableTier: [[...this.tierList]],
-      skillSet: this.fb.group({...skillSet})
+      skillSet: this.fb.group({...skillSet}),
+      tags: [[]],
     })
   } 
   _updateAvailableTier(tier) {
@@ -105,6 +86,7 @@ export class CharacterCreationComponent implements OnInit {
   }
   _updateSkill(event) {
     const { name, value } = event.target;
+    this._updateTag(value);
     const skillSetControl =  <FormGroup>this.characterForm.get('skillSet');
     const tierControl = <FormArray>skillSetControl.controls[this.selectedTier];
     const skillControl = tierControl.controls[name];
@@ -112,7 +94,13 @@ export class CharacterCreationComponent implements OnInit {
     skillControl.setValue({
       ...currentValue,
       description: value
-    })
+    })    
+  }
+  _updateTag(skill) {
+    const newTags = getTagFromSkill(skill);
+    const control = this.characterForm.get('tags');
+    const value = control.value;
+    control.setValue(_.uniq(value.concat(newTags)));console.log(this.characterForm.get('tags').value)
   }
   _submitForm() {
     const payload = this.characterForm.value;

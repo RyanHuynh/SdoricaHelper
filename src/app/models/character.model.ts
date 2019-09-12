@@ -25,12 +25,13 @@ export interface ISkill {
 }
 
 export interface ICharacter {
+    id?: string,
     name: string;
     position: string;  
     baseStat: {
         attack: number,
         hp: number,
-        orb: number
+        revive: number
     },
     icon?: string, 
     availableTier: string[],
@@ -40,5 +41,6 @@ export interface ICharacter {
         SR: ISkill[],
         SSR: ISkill[],
         Alt: ISkill[],
-    }
+    },
+    tags: string[]
 }

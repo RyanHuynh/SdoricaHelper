@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CharacterDetailComponent } from '../../character-detail/character-detail.component';
+import { ICharacter } from '../../../../models/character.model';
 
 @Component({
   selector: 'character-tile',
@@ -6,13 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./character-tile.component.scss']
 })
 export class CharacterTileComponent implements OnInit {
-  @Input() data: object;
+  @Input() data: ICharacter;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
-test() {
-  debugger;
-}
+  _getCharacterDetail() {
+    const config = new MatDialogConfig();
+    config.data = this.data.id;
+    this.dialog.open(CharacterDetailComponent, config);
+  }
 }
