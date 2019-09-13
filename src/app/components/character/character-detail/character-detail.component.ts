@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { CharacterAPIService } from '../../../services/character-api.service';
+import { CharacterUtilService } from '../../../services/character-util.service';
 
 @Component({
   selector: 'character-detail',
@@ -22,6 +23,7 @@ export class CharacterDetailComponent implements OnInit {
   constructor(
     private characterService: CharacterAPIService,
     private dialogRef: MatDialogRef<CharacterDetailComponent>,
+    private characterUtil: CharacterUtilService,
     @Inject(MAT_DIALOG_DATA) data
     ) {
       this.dialogData = data;
@@ -31,6 +33,7 @@ export class CharacterDetailComponent implements OnInit {
     this.characterService.getCharacter(this.dialogData).subscribe(res => {
       if (res.success) {
         this.character = res.data;
+        this._levelUpdated(1);
       }
     });
   } 
@@ -42,12 +45,10 @@ export class CharacterDetailComponent implements OnInit {
   }
   _levelUpdated(newLevel) {
     this.level = newLevel;
-    this.stat.attack = newLevel * this.character.baseStat.attack;
-    this.stat.hp = newLevel * this.character.baseStat.hp;
+    this.stat = this.characterUtil.getCurrentStat(this.character.baseStat, newLevel, this.exceed, this.selectedTier);
   }
   _exceedUpdated(newExceed) {
     this.exceed = newExceed;
-    this.stat.attack = this.level * this.character.baseStat.attack + newExceed;
-    this.stat.hp = this.level * this.character.baseStat.hp + newExceed;
+    this.stat = this.characterUtil.getCurrentStat(this.character.baseStat, this.level, newExceed, this.selectedTier);
   }
 }

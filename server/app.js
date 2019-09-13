@@ -8,7 +8,7 @@ var team = require('./routes/team');
 
 var app = express();
 var characterService = require('./services/character.service');
-//characterService.mock();
+characterService.mock();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

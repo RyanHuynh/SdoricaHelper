@@ -19,7 +19,7 @@ import { TeamBuilderComponent } from './components/team/team-builder/team-builde
 import { CharacterDashboardComponent } from './components/character/character-dashboard/character-dashboard.component';
 import { TeamDashboardComponent } from './components/team/team-dashboard/team-dashboard.component';
 import { CharacterTileComponent } from './components/character/character-dashboard/character-tile/character-tile.component';
-import { SkillRenderer } from './utils/character.util';
+import { SkillRenderer } from './services/character-util.service';
 
 @NgModule({
   declarations: [

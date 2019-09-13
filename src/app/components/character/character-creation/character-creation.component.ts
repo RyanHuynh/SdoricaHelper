@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { characterMetaData } from '../../../models/character.model';
 import { CharacterAPIService } from '../../../services/character-api.service';
-import { getTagFromSkill } from '../../../utils/character.util';
+import { CharacterUtilService } from '../../../services/character-util.service';
 
 @Component({
   selector: 'character-creation',
@@ -26,7 +26,8 @@ export class CharacterCreationComponent implements OnInit {
   constructor(
     private charService: CharacterAPIService, 
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<CharacterCreationComponent>
+    private dialogRef: MatDialogRef<CharacterCreationComponent>,
+    private characterUtil: CharacterUtilService,
   ){}
   ngOnInit() {  
     this.characterForm = this._createForm();
@@ -97,7 +98,7 @@ export class CharacterCreationComponent implements OnInit {
     })    
   }
   _updateTag(skill) {
-    const newTags = getTagFromSkill(skill);
+    const newTags = this.characterUtil.getTagFromSkill(skill);
     const control = this.characterForm.get('tags');
     const value = control.value;
     control.setValue(_.uniq(value.concat(newTags)));console.log(this.characterForm.get('tags').value)

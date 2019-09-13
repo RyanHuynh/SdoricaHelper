@@ -3,9 +3,9 @@
 
     <form class='character-detail' mat-dialog-content>
         <div class=icon-info-wrapper>
-            <section class="icon-section">
-                <img src="../../../../assets/img/dylan.png" />
-            </section>
+            <!-- <section class="icon-section">
+                <img src="../../../../assets/img/characters/{{character.icon}}.png" />
+            </section> -->
             <section class="info-section">
                 <div class="flex">
                     <mat-form-field >
@@ -65,7 +65,7 @@
                     <ng-template mat-tab-label>
                         <img src="../../../../assets/img/{{skill.type}}.png" />
                     </ng-template>
-                    <div [innerHTML]="skill.description | skillRenderer:stat:level:exceed"></div>                  
+                    <div [innerHTML]="skill.description | skillRenderer:stat"></div>                  
                 </mat-tab>
             </mat-tab-group>
         </section>     

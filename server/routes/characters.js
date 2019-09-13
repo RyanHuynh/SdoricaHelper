@@ -21,7 +21,7 @@ router.get('/list', async(req, res) => {
         success: true 
       })
     }
-    return res.status(400).json({ success: false })
+    
   } catch (err) {
     return res.status(400).json({ error: err.message, success: false });
   }
@@ -34,7 +34,8 @@ router.get('/get', async(req, res) => {
         data: status.data,
         success: true 
       })
-    }
+    } 
+    return res.status(400).json({ success: false })
   } catch (err) {
     return res.status(400).join({ error: err.message, success: false });
   }
