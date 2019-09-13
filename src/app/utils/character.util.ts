@@ -1,94 +1,33 @@
-import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Pipe, PipeTransform } from '@angular/core';
 
-export const mechanicDictionary = {
+export const statusDictionary = {
     // ATK
-    an: {
-        name: "Normal Attack",
-        class: "a-n"
-    },
-    ap: {
-        name: "Armor Penetration",
-        class: "a-a"
-    },
-    at: {
-        name: "True Damage",
-        class: "a-t"
-    },
+    an: "Normal Attack",   
+    aa: "Armor Penetration",  
+    at: "True Damage", 
 
     // DEFENSE
-    dh: {
-        name: "Heal",
-        class: "d-h",
-    },
-    da: {
-        name: "Armor",
-        class: "d-a"
-    },
+    dh: "Heal",  
+    da: "Armor",
 
     // BUFF
-    "+e": {
-        name: "Enhance",
-        class: "b-e"
-    },
-    "+c": {
-        name: "Charisma",
-        class: "b-c"
-    },
-    "+r": {
-        name: "Rage",
-        class: "b-r"
-    },
-    "+w": {
-        name: "Warcry",
-        class: "b-w"
-    }, 
-    "+t": {
-        name: "Taunt",
-        class: "b-t",
-    },
-    "+d": {
-        name: "Damage Reduction",
-        class: "b-d"
-    },
-    "+re": {
-        name: "Regen",
-        class: "b-re"
-    },
-    "+a": {
-        name: "Armor Shift",
-        class: "b-a"
-    },
-    "+ta": {
-        name: "Tank Up",
-        class: "b-ta"
-    },
-    "+v": {
-        name: "Vigilance",
-        class: "b-v"
-    },
+    be: "Enhance",
+    bc: "Charisma",
+    br: "Rage",
+    bw: "Warcry",        
+    bt: "Taunt",
+    bd: "Damage Reduction",
+    bre: "Regen",
+    ba: "Armor Shift",      
+    bta: "Tank Up",      
+    bv: "Vigilance",      
 
     // DEBUFF
-    "-v": {
-        name: "Vulnerable",
-        class: "de-v"
-    },
-    "-t": {
-        name: "Tear",
-        class: "de-t"
-    },
-    "-p": {
-        name: "Poison",
-        class: "de-p"
-    }, 
-    "-e": {
-        name: "Exhaust",
-        class: "de-e"
-    },
-    "-s": {
-        name: "Stun",
-        class: "de-s"
-    }
+    dev: "Vulnerable",
+    det: "Tear",
+    dep: "Poison",
+    dee: "Exhaust",
+    des: "Stun",
 }
 
 //Extract tags from skill
@@ -112,25 +51,30 @@ export const getTagFromSkill = skill => {
     return result;
 }
 
+//armor pen <ap>1.5</ap> then <at>2</at> then <an>5</an> then heal <dh>2.5</dh> then grant <be></be> 
 @Pipe({ name: 'skillRenderer' })
 export class SkillRenderer implements PipeTransform {    
-    constructor(private sanitizer: DomSanitizer) {}
+    constructor() {}
 
     transform(skill: string, stat: any) {
-        let result = skill;
         let m;
+        let result = skill;
         while ((m = skillRegex.exec(skill)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
             if (m.index === skillRegex.lastIndex) {
                 skillRegex.lastIndex++;
             }
             const match = m[0]
-            const tag = mechanicDictionary[m[1]];
+            const tag = m[1];
+            const tagName = statusDictionary[tag];
             const multiplier = m[2];
-            if (tag) {
-                result = result.replace(match, `<span class='${tag.class}'>${multiplier ? Math.floor(multiplier * stat.attack) : ""}</span>`);          
+            if (tagName) {
+                if (multiplier) {
+                    result = result.replace(match, `<b class='${tag}'>${Math.floor(multiplier * stat.attack)}</b>`); 
+                }
+                result = result.replace(match, `<div class='status ${tag}'></div>`); 
             } 
         } 
-        return result
+        return result;
     }
 }

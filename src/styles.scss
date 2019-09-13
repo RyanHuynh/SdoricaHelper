@@ -98,12 +98,28 @@ textarea {
 }
 
 //Status
-.a-n {
+.status {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-size: 100%;
+    vertical-align: middle;
+}
+.an {
     color: $aNormal;
 }
-.a-a {
+.aa {
     color: $aArmor;
 }
-.a-t {
+.at {
     color: $aTrue;
+}
+.dh {
+    color: $dHeal;
+}
+.da {
+    color: $dArmor;
+}
+.be {
+    background-image: url('./assets/img/status/enhance.png');
 }
