@@ -5,7 +5,7 @@ class CharacterService {
     static mock() {     
         DATASET.push({
             name: "Angelia",
-            position: "white",
+            position: "White",
             id: 1,
             skillSet: {
                 SSR: [{
@@ -31,8 +31,7 @@ class CharacterService {
                 attack: 68,
                 hp: 240,
                 revive: 8
-            },
-            icon: "angelia"
+            }          
         })
     }
     static create(data) {
@@ -41,21 +40,24 @@ class CharacterService {
             data.position,
             data.baseStat,
             data.availableTier,
+            data.titles,
             data.skillSet,
-            data.tags,
-            data.icon
+            data.tags,      
         );
         DATASET.push(character);       
-        return true;
+        return {
+            data: character.id,
+            success: true
+        };
     }
     static list(position) {
         if (position === "all") {
             return {
                 success: true,
                 data: {
-                    white: DATASET.filter(c => c.position === "white"),
-                    black: DATASET.filter(c => c.position === "black"),
-                    gold: DATASET.filter(c => c.position === "gold")
+                    White: DATASET.filter(c => c.position === "White"),
+                    Black: DATASET.filter(c => c.position === "Black"),
+                    Gold: DATASET.filter(c => c.position === "Gold")
                 },
             }
         }
@@ -65,14 +67,13 @@ class CharacterService {
         } 
     }
     static get(id) {
-        const character = DATASET.find(c => c.id == id);console.log(id);
-        if (character) {console.log(2);
+        const character = DATASET.find(c => c.id == id);
+        if (character) {
             return {
                 data: character,
                 success: true,
             } 
         }
-        console.log(3);
         return {
             success: false
         }

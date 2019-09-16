@@ -10,15 +10,10 @@ import { CharacterAPIService } from '../../../services/character-api.service';
 export class CharacterDashboardComponent implements OnInit {
   searchString: string;
   characterList = {
-    white: [],
-    black: [],
-    gold: [],
-  };
-  filter = {
-    white: true,
-    black: true,
-    gold: true,
-  };
+    White: [],
+    Black: [],
+    Gold: [],
+  }; 
   editMode: boolean = false;
   constructor(private dialog: MatDialog, private characterServies: CharacterAPIService) { }
 

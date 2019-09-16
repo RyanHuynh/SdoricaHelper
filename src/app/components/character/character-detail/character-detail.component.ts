@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { CharacterAPIService } from '../../../services/character-api.service';
 import { CharacterUtilService } from '../../../services/character-util.service';
+import { ICharacter }from '../../../models/character.model';
 
 @Component({
   selector: 'character-detail',
@@ -10,7 +11,7 @@ import { CharacterUtilService } from '../../../services/character-util.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CharacterDetailComponent implements OnInit {
-  character = null;
+  character: ICharacter = null;
   dialogData = null;
   level: number = 1;
   exceed: number = 0;
@@ -33,6 +34,7 @@ export class CharacterDetailComponent implements OnInit {
     this.characterService.getCharacter(this.dialogData).subscribe(res => {
       if (res.success) {
         this.character = res.data;
+        this.selectedTier = this.character.availableTier[0];
         this._levelUpdated(1);
       }
     });

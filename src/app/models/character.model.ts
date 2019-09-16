@@ -2,18 +2,19 @@ export namespace characterEndpoint {
     export const saveCharacter = 'api/character/save';
     export const getCharacter = 'api/character/get';
     export const listCharacter = 'api/character/list';
+    export const uploadImages = 'api/character/upload';
 }
 
 export namespace characterMetaData {
     export const positionOptions = [{
         name: "White",
-        value: "white",
+        value: "White",
     },{
         name: "Black",
-        value: "black"
+        value: "Black"
     },{
         name: "Gold",
-        value: "gold",
+        value: "Gold",
     }];
     export const skillOptions = ["one", "two", "four", "passive", "advisor"];
     export const tierList = ["N", "R", "SR", "SSR", "Alt"];
@@ -21,6 +22,7 @@ export namespace characterMetaData {
 
 export interface ISkill {
     type: string;
+    name: string;
     description: string;
 }
 
@@ -33,8 +35,8 @@ export interface ICharacter {
         hp: number,
         revive: number
     },
-    icon?: string, 
     availableTier: string[],
+    title: {},
     skillSet: {
         N: ISkill[],
         R: ISkill[],

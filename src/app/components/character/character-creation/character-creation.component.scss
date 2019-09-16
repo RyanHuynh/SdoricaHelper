@@ -1,7 +1,11 @@
 @import '../../../../_variable.scss';
 
 .mat-dialog-container {
-    min-width: 900px;
+    min-width: 700px;
+    .navigation {
+        justify-content: flex-end;
+        display: flex;
+    }
     .character-creation-form {
         .mat-form-field {
            flex: 1;       
@@ -47,20 +51,21 @@
             }        
         }  
         .skill-section {
-            margin-top: 30px;
+            margin-top: 20px;
             .mat-tab-body-content {
                 display: flex;
                 textarea {
                     background-color: $textareaBackground;
                     padding: 10px;
                     box-sizing: border-box;
+                    width: 100%;                
                 }
-                .mat-form-field-underline {
-                    display: none;
-                }
-                .mat-form-field-wrapper {
-                    padding: 0;
-                }            
+                .description {
+                    .mat-form-field-underline {
+                        display: none;
+                    }
+                      
+                }                
             }
             .mat-tab-labels {
                 padding: 15px;
@@ -78,7 +83,33 @@
                         height: 70px;
                     }
                 }  
-            }              
+            } 
+            .skill-wrapper {
+                flex-direction: column;
+                display: flex;
+                width: 100%;
+                .name-wrapper {
+                    display: flex;
+                    .clone-btn {
+                        width: 100px;
+                        height: 34px;
+                        margin-left: 10px;
+                        margin-bottom: 10px;
+                        background-color: $complement;
+                        align-self: center;
+                    }
+                }                
+            }         
         }  
+    }
+    .image-uploader {
+        .drop-zone {
+            margin-top: 20px;
+            border: 1px dashed #e3e3e3;
+            border-radius: 5px;
+            text-align: center;
+            padding: 80px;
+            background: none;
+        }
     }
 }

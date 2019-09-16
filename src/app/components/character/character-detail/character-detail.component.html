@@ -1,11 +1,11 @@
 <div *ngIf="character">
-    <h4 mat-dialog-title>{{character.name}}</h4>
+    <h4 mat-dialog-title>{{character.titles[selectedTier]}}</h4>
 
     <form class='character-detail' mat-dialog-content>
         <div class=icon-info-wrapper>
-            <!-- <section class="icon-section">
-                <img src="../../../../assets/img/characters/{{character.icon}}.png" />
-            </section> -->
+            <section class="icon-section">
+                <img src="../../../../assets/img/characters/{{character.id}}/{{selectedTier}}.png" />
+            </section>
             <section class="info-section">
                 <div class="flex">
                     <mat-form-field >
@@ -40,17 +40,17 @@
                     <mat-form-field>  
                         <mat-label>Stat</mat-label>    
                         <input matInput disabled [value]="stat.attack">
-                        <img src="../../../../assets/img/atk.png" style="width: 20px" matSuffix />
+                        <img src="../../../../assets/img/icon/atk.png" style="width: 20px" matSuffix />
                     </mat-form-field>
                     <mat-form-field>   
                         <mat-label></mat-label>  
                         <input matInput disabled [value]="stat.hp">
-                        <img src="../../../../assets/img/hp.png" matSuffix />
+                        <img src="../../../../assets/img/icon/hp.png" matSuffix />
                     </mat-form-field>
                     <mat-form-field>   
                         <mat-label></mat-label>
                         <input matInput disabled [value]="character.baseStat.revive">
-                        <img src="../../../../assets/img/revive.png" style="width: 21px" matSuffix/>
+                        <img src="../../../../assets/img/icon/revive.png" style="width: 21px" matSuffix/>
                     </mat-form-field>
                 </div>
             </section>
@@ -63,7 +63,7 @@
                     [label]="skill.type"               
                 >
                     <ng-template mat-tab-label>
-                        <img src="../../../../assets/img/{{skill.type}}.png" />
+                        <img src="../../../../assets/img/icon/{{skill.type}}.png" />
                     </ng-template>
                     <div [innerHTML]="skill.description | skillRenderer:stat"></div>                  
                 </mat-tab>

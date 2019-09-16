@@ -25,7 +25,7 @@ export const statusDictionary = {
     bv: "Vigilance",      
 
     // DEBUFF
-    dev: "Vulnerable",
+    dev: "Vulnerability",
     det: "Tear",
     dep: "Poison",
     dee: "Exhaust",

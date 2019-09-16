@@ -1,97 +1,151 @@
 <h4 mat-dialog-title>Create New Character</h4>
-<form class='character-creation-form' [formGroup]="characterForm" mat-dialog-content>
-    <div class=icon-info-wrapper>
-        <!-- <section class="icon-section">
-            <img src="../../../../assets/img/dylan.png" />
-        </section> -->
-        <section class="info-section">
-            <div class="flex">
-                <mat-form-field >
-                    <mat-label>Name</mat-label>
-                    <input matInput placeholder="Enter Character Name" formControlName="name">
-                </mat-form-field>
-            
-                <mat-form-field>
-                    <mat-label>Position</mat-label>
-                    <mat-select formControlName="position">          
-                        <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field >
-                    <mat-label>Icon</mat-label>
-                    <input matInput placeholder="Icon Name" formControlName="icon">
-                </mat-form-field>
-            </div>           
-            
-            <div class="flex basestat">
-                <mat-form-field formGroupName="baseStat">  
-                    <mat-label>Base Stat</mat-label>    
-                    <input type="number" matInput placeholder="Attack" formControlName="attack">
-                    <img src="../../../../assets/img/atk.png" style="width: 20px" matSuffix />
-                </mat-form-field>
-                <mat-form-field formGroupName="baseStat">   
-                    <mat-label></mat-label>  
-                    <input type="number" matInput placeholder="HP" formControlName="hp">
-                    <img src="../../../../assets/img/hp.png" matSuffix />
-                </mat-form-field>
-                <mat-form-field formGroupName="baseStat">   
-                    <mat-label></mat-label>
-                    <input type="number" matInput placeholder="Revive" formControlName="revive">
-                    <img src="../../../../assets/img/revive.png" style="width: 21px" matSuffix />
-                </mat-form-field>
-            </div>  
-             
-            <section class="form-field">
-                <label class="form-label">Available Tier</label>   
-                <section class="tier-wrapper">              
-                    <mat-checkbox 
-                        *ngFor="let tier of tierList; let i = index" 
-                        (change)="_updateAvailableTier($event)" 
-                        checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" 
-                        name={{tier}}
-                        [ngClass]="tier + '-color'" 
-                    >
-                        {{tier}}
-                    </mat-checkbox>        
-                </section>          
-            </section>            
-
-            <div class="flex">
-                <mat-form-field >
-                    <mat-label>Level</mat-label>
-                    <input type="number" matInput [value]="level" name="level">
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Exceed</mat-label>
-                    <input type="number" matInput [value]="exceed" name="exceed">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Tier</mat-label>
-                    <mat-select (selectionChange)="_selectTier($event)" [value]="selectedTier">          
-                        <mat-option *ngFor="let tier of characterForm.get('availableTier').value; let i = index" [value]="tier">{{tier}}</mat-option>            
-                    </mat-select>
-                </mat-form-field>         
-            </div>
-        </section>
+<div mat-dialog-content class="creation-wrapper">
+    <div class="navigation">
+        <button [ngClass]="selectedTab !== 'image' ? 'mat-flat-button' : 'mat-stroked-button'" (click)="_toggleTab()">Info</button>
+        <button [ngClass]="selectedTab === 'image' ? 'mat-flat-button' : 'mat-stroked-button'" (click)="_toggleTab()">Image</button>
     </div>
+    <form class='character-creation-form' [formGroup]="characterForm" *ngIf="selectedTab === 'info'" >
+        <div class=icon-info-wrapper>        
+            <section class="info-section">
+                <div class="flex">
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter Character Name" formControlName="name">
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                        <mat-label>Position</mat-label>
+                        <mat-select formControlName="position">          
+                            <mat-option *ngFor="let p of positionOptions" [value]="p.value">{{p.name}}</mat-option>            
+                        </mat-select>
+                    </mat-form-field>
+                </div>           
+                
+                <div class="flex basestat">
+                    <mat-form-field formGroupName="baseStat">  
+                        <mat-label>Base Stat</mat-label>    
+                        <input type="number" matInput placeholder="Attack" formControlName="attack">
+                        <img src="../../../../assets/img/icon/atk.png" style="width: 20px" matSuffix />
+                    </mat-form-field>
+                    <mat-form-field formGroupName="baseStat">   
+                        <mat-label></mat-label>  
+                        <input type="number" matInput placeholder="HP" formControlName="hp">
+                        <img src="../../../../assets/img/icon/hp.png" matSuffix />
+                    </mat-form-field>
+                    <mat-form-field formGroupName="baseStat">   
+                        <mat-label></mat-label>
+                        <input type="number" matInput placeholder="Revive" formControlName="revive">
+                        <img src="../../../../assets/img/icon/revive.png" style="width: 21px" matSuffix />
+                    </mat-form-field>
+                </div>  
+                    
+                <section class="form-field">
+                    <label class="form-label">Available Tier</label>   
+                    <section class="tier-wrapper">              
+                        <mat-checkbox 
+                            *ngFor="let tier of tierList; let i = index" 
+                            (change)="_updateAvailableTier($event)" 
+                            checked="characterForm.get('availableTier').value.indexOf(tier) !== -1" 
+                            name={{tier}}
+                            [ngClass]="tier + '-color'" 
+                        >
+                            {{tier}}
+                        </mat-checkbox>        
+                    </section>          
+                </section>            
     
-    <section class="skill-section">
-        <mat-tab-group mat-align-tabs="center">
-            <mat-tab 
-                *ngFor="let skill of characterForm.get('skillSet').controls[selectedTier].controls; let i = index" 
-                [label]="skill.value.type"               
-            >
-                <ng-template mat-tab-label>
-                    <img src="../../../../assets/img/{{skill.value.type}}.png" />
-                </ng-template>
-                <mat-form-field>              
-                    <textarea matInput rows="10" (change)="_updateSkill($event)" name={{i}} [value]="skill.value.description"></textarea>
-                </mat-form-field>
-            </mat-tab>
-        </mat-tab-group>
-    </section>     
-</form>
+                <div class="flex">
+                    <mat-form-field>
+                        <mat-label>Tier</mat-label>
+                        <mat-select (selectionChange)="_selectTier($event)" [value]="selectedTier">          
+                            <mat-option *ngFor="let tier of characterForm.get('availableTier').value; let i = index" [value]="tier">{{tier}}</mat-option>            
+                        </mat-select>
+                    </mat-form-field> 
+                    <mat-form-field style="flex:2" formGroupName="titles">
+                        <mat-label>Title</mat-label>
+                        <input matInput placeholder="Enter Character Title" (change)="_updateTitle($event)" [value]="currentTitle" >
+                    </mat-form-field>      
+                </div>
+            </section>
+        </div>
+        
+        <section class="skill-section">
+            <mat-tab-group mat-align-tabs="center" [@.disabled]="true">
+                <mat-tab 
+                    *ngFor="let skill of characterForm.get('skillSet')['controls'][selectedTier]['controls']; let i = index" 
+                    [label]="skill.value.type"               
+                >
+                    <ng-template mat-tab-label>
+                        <img src="../../../../assets/img/icon/{{skill.value.type}}.png" />
+                    </ng-template>
+                    <div class="skill-wrapper">
+                        <div class="name-wrapper">
+                            <mat-form-field>
+                                <mat-label>Name</mat-label>
+                                <input matInput placeholder="Enter Skill Name" (change)="_updateSkillName($event)" name={{i}} [value]="skill.value.name">                        
+                            </mat-form-field>   
+                            <button *ngIf="selectedTier === 'SSR'" class="clone-btn" type="button" mat-flat-button name={{i}} (click)="_cloneSkill(i)">Clone</button>
+                        </div>                    
+                        <mat-form-field class="description">              
+                            <textarea matInput rows="8" (change)="_updateSkillDescription($event)" name={{i}} [value]="skill.value.description"></textarea>
+                        </mat-form-field>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </section>     
+    </form>
+    <div *ngIf="selectedTab === 'image'" class="image-uploader">        
+        <div 
+            ng2FileDrop
+            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+            (fileOver)="fileOverBase($event)"
+            [uploader]="uploader"
+            class="well drop-zone">
+                Drop Images Here
+        </div>   
+        <div> 
+            <h3>Upload queue</h3>   
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item?.file?.name }}</strong></td>
+                    <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    <td>
+                        <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                    </td>
+                    <td nowrap>                       
+                        <button type="button" class="btn btn-warning btn-xs"
+                                (click)="item.cancel()" [disabled]="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs"
+                                (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 <div class="btn-grp" mat-dialog-actions>
     <button type="button" mat-flat-button (click)="onNoClick()">Cancel</button>

@@ -3,5 +3,6 @@
 .tile {
     width: 100px;
     height: 100px;
-    background: $tileColor;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }

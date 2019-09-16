@@ -4,8 +4,11 @@ var CharacterService = require('../services/character.service');
 router.post('/save', async(req, res) => {
   try {
     const status = await CharacterService.create(req.body);
-    if (status) {
-      return res.status(200).json({ success: true })
+    if (status.success) {
+      return res.status(200).json({ 
+        success: true,
+        data: status.data
+       })
     }
     return res.status(400).json({ success: false })
   } catch (err) {

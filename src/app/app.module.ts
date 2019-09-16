@@ -9,6 +9,7 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialComponentModule } from './material-component.module';
 import { FormsModule } from '@angular/forms';
+import { FileUploadModule } from "ng2-file-upload";
 
 //Component 
 import { AppComponent } from './app.component';
@@ -31,7 +32,7 @@ import { SkillRenderer } from './services/character-util.service';
     CharacterDashboardComponent,
     TeamDashboardComponent,
     CharacterTileComponent,
-    SkillRenderer
+    SkillRenderer,    
   ],
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ import { SkillRenderer } from './services/character-util.service';
     MaterialComponentModule,
     FormsModule,
     AngularFileUploaderModule,
+    FileUploadModule
   ],
   entryComponents: [
     CharacterCreationComponent, 
