@@ -3,14 +3,14 @@ var router = express.Router();
 var CharacterService = require('../services/character.service');
 router.post('/save', async(req, res) => {
   try {
-    const status = await CharacterService.create(req.body);
-    if (status.success) {
+    var result = await CharacterService.create(req.body);console.log(2);
+    if (result.success) {
       return res.status(200).json({ 
         success: true,
-        data: status.data
-       })
+        data: result.data
+      })
     }
-    return res.status(400).json({ success: false })
+    return res.status(400).json({ success: false });    
   } catch (err) {
     return res.status(400).json({ error: err.message, success: false });
   }

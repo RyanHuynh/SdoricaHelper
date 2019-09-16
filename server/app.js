@@ -1,6 +1,9 @@
-const express = require('express');
-const path = require('path');
+const  dotenv = require('dotenv');
+dotenv.config();
 const http = require('http');
+const express = require('express');
+const MongoClient = require('mongodb').MongoClient
+const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
@@ -8,6 +11,7 @@ const bodyParser = require('body-parser');
 const characters = require('./routes/characters');
 const team = require('./routes/team');
 const characterService = require('./services/character.service');
+const app = express();
 
 const UPLOAD_DIR = './dist/assets/img/characters/';
 fs.mkdir('_tmp', () => {});
@@ -21,7 +25,7 @@ var storage = multer.diskStorage({
   })
   
 var upload = multer({ storage: storage })
-const app = express();
+
 
 characterService.mock();
 app.use(bodyParser.json());
@@ -35,10 +39,8 @@ app.use('/api/team', team);
 app.post('/api/character/upload', upload.single('file'), (req, res, cb)  => {
   //Create new dir with id of character
   const newPath = UPLOAD_DIR + req.body.dirName;
-  fs.mkdir(newPath, err => { console.log(err)
-    console.log(newPath + req.file.originalname);
-    console.log(req.file.path);
-    fs.rename(req.file.path, newPath + '/' + req.file.originalname, (err)  => {console.log(err);
+  fs.mkdir(newPath, err => { 
+    fs.rename(req.file.path, newPath + '/' + req.file.originalname, (err)  => {
       res.status(200).json({   
         success: true 
       })
@@ -50,14 +52,15 @@ app.post('/api/character/upload', upload.single('file'), (req, res, cb)  => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
-const port = process.env.PORT || '3001';
-app.set('port', port);
 
-const server = http.createServer(app);
+const port = process.env.PORT || 3000;
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
-
-module.exports = app;
+const server = http.createServer(app);
+MongoClient.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+  if (err) return console.log(err)
+  db = client.db('sdo');
+  server.listen(port, () => console.log(`API running on localhost:${port}`));
+})

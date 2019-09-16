@@ -44,11 +44,19 @@ class CharacterService {
             data.skillSet,
             data.tags,      
         );
-        DATASET.push(character);       
-        return {
-            data: character.id,
-            success: true
-        };
+        return new Promise(resolve => {
+            db
+            .collection('characters')
+            .insertOne(character)
+            .then(result => {
+                console.log(1);
+                if (result.err) return console.log(err);        
+                resolve({
+                    data: character.id,
+                    success: true
+                })
+            })
+        });     
     }
     static list(position) {
         if (position === "all") {
