@@ -57,7 +57,7 @@
         </div>
         
         <section class="skill-section">
-            <mat-tab-group mat-align-tabs="center">
+            <mat-tab-group mat-align-tabs="center" [@.disabled]="true">
                 <mat-tab 
                     *ngFor="let skill of character.skillSet[selectedTier]" 
                     [label]="skill.type"               
@@ -65,7 +65,7 @@
                     <ng-template mat-tab-label>
                         <img src="../../../../assets/img/icon/{{skill.type}}.png" />
                     </ng-template>
-                    <div [innerHTML]="skill.description | skillRenderer:stat"></div>                  
+                    <div [innerHTML]="skill.description | skillRenderer:stat:skill"></div>                  
                 </mat-tab>
             </mat-tab-group>
         </section>     

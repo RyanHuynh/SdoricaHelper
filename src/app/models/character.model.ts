@@ -36,7 +36,7 @@ export interface ICharacter {
         revive: number
     },
     availableTier: string[],
-    title: {},
+    titles: {},
     skillSet: {
         N: ISkill[],
         R: ISkill[],

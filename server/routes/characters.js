@@ -3,7 +3,7 @@ var router = express.Router();
 var CharacterService = require('../services/character.service');
 router.post('/save', async(req, res) => {
   try {
-    var result = await CharacterService.create(req.body);console.log(2);
+    var result = await CharacterService.create(req.body);
     if (result.success) {
       return res.status(200).json({ 
         success: true,
@@ -17,10 +17,10 @@ router.post('/save', async(req, res) => {
 });
 router.get('/list', async(req, res) => {
   try {
-    const status = await CharacterService.list(req.query.position);
-    if (status.success) {
+    const result = await CharacterService.list(req.query.position);
+    if (result.success) {
       return res.status(200).json({ 
-        data: status.data,
+        data: result.data,
         success: true 
       })
     }
@@ -31,10 +31,10 @@ router.get('/list', async(req, res) => {
 })
 router.get('/get', async(req, res) => {
   try {
-    const status = await CharacterService.get(req.query.id);
-    if (status.success) {
+    const result = await CharacterService.get(req.query.id);
+    if (result.success) {
       return res.status(200).json({ 
-        data: status.data,
+        data: result.data,
         success: true 
       })
     } 

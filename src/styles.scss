@@ -6,13 +6,13 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background: #2f3542;
+    background: $background;
 }
 input, label, .mat-select-value-text, textarea{
     font-size: 14px !important;
 }
 textarea {
-    padding: 10px;
+    padding: 15px;
 }
 .flex {
     display: flex;
@@ -48,11 +48,11 @@ textarea {
         color: $fontPrimary;
     }
     .mat-dialog-content {
-        padding: 15px;
+        padding: 20px;
         margin: 0;
     }
     .mat-dialog-actions {
-        padding: 0 15px 15px;
+        padding: 0 20px 20px;
         margin: 0;
     }
 }
@@ -79,7 +79,10 @@ textarea {
         background-image: linear-gradient(to right, $complement 0,rgba(0,0,0,.42) 33%,#e0232300 0);       
     }
 }
-
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: $complement;
+}
+.mat-tab
 //Tier
 .N-color { 
     color: $NColor;

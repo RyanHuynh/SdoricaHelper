@@ -48,8 +48,7 @@ class CharacterService {
             db
             .collection('characters')
             .insertOne(character)
-            .then(result => {
-                console.log(1);
+            .then(result => {              
                 if (result.err) return console.log(err);        
                 resolve({
                     data: character.id,
@@ -60,31 +59,63 @@ class CharacterService {
     }
     static list(position) {
         if (position === "all") {
-            return {
-                success: true,
-                data: {
-                    White: DATASET.filter(c => c.position === "White"),
-                    Black: DATASET.filter(c => c.position === "Black"),
-                    Gold: DATASET.filter(c => c.position === "Gold")
-                },
-            }
+            return new Promise((resolve, reject) => {
+                db
+                .collection('characters')
+                .find({})
+                .toArray((err, items) => {
+                    if(err) {
+                        reject(err);
+                    } else {                   
+                        resolve({
+                            success: true,
+                            data: {
+                                White: items.filter(c => c.position === "White"),
+                                Black: items.filter(c => c.position === "Black"),
+                                Gold: items.filter(c => c.position === "Gold")
+                            },
+                        });
+                    }
+                })
+            })    
         }
-        return {
-            data: { [position]: DATASET.filter(c => c.position === position) },
-            success: true
-        } 
+        return new Promise((resolve, reject) => {
+            db
+            .collection('characters')
+            .find({position})
+            .toArray((err, items) => {
+                if(err) {
+                    reject(err);
+                } else {                   
+                    resolve({
+                        success: true,
+                        data: {
+                           [position]: items
+                        },
+                    });
+                }
+            })
+        })    
     }
     static get(id) {
-        const character = DATASET.find(c => c.id == id);
-        if (character) {
-            return {
-                data: character,
-                success: true,
-            } 
-        }
-        return {
-            success: false
-        }
+        return new Promise((resolve, reject) => {
+            db
+            .collection('characters')
+            .findOne({id})
+            .then(result => {
+                if (!result) {
+                    reject({
+                        success: false,
+                        message: "Error finding character."
+                    });
+                } else {
+                    resolve({
+                        data: result,
+                        success: true
+                    });
+                }                
+            })
+        })     
     }
 }
 module.exports = CharacterService;

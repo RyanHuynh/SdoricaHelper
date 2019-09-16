@@ -48,20 +48,21 @@
         }  
         .skill-section {
             margin-top: 30px;
-            .mat-tab-body-content {
-                display: flex;
-                textarea {
-                    background-color: $textareaBackground;
-                    padding: 10px;
-                    box-sizing: border-box;
+            .mat-tab-body {
+                padding-top: 15px;
+                .mat-tab-body-content {
+                    display: flex;
+                    padding: 15px;
+                    background: $textareaBackground;
+                    min-height: 150px;
+                    .status-description {
+                        margin-top: 20px;
+                    }
+                    .status-description ~ .status-description {
+                        margin-top: 0;
+                    }                
                 }
-                .mat-form-field-underline {
-                    display: none;
-                }
-                .mat-form-field-wrapper {
-                    padding: 0;
-                }            
-            }
+            }           
             .mat-tab-labels {
                 padding: 15px;
                 .mat-tab-label {

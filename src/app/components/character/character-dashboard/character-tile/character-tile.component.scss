@@ -1,8 +1,9 @@
 @import "../../../../../variable";
 
 .tile {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     background-repeat: no-repeat;
+    background-size: 100%;
     cursor: pointer;
 }

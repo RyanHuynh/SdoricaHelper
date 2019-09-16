@@ -61,7 +61,7 @@
                             <mat-option *ngFor="let tier of characterForm.get('availableTier').value; let i = index" [value]="tier">{{tier}}</mat-option>            
                         </mat-select>
                     </mat-form-field> 
-                    <mat-form-field style="flex:2" formGroupName="titles">
+                    <mat-form-field style="flex:2">
                         <mat-label>Title</mat-label>
                         <input matInput placeholder="Enter Character Title" (change)="_updateTitle($event)" [value]="currentTitle" >
                     </mat-form-field>      
