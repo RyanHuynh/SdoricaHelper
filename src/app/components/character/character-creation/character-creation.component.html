@@ -1,9 +1,12 @@
-<h4 mat-dialog-title>Create New Character</h4>
-<div mat-dialog-content class="creation-wrapper">
+<div mat-dialog-title>
+    <h4>Create New Character</h4>
     <div class="navigation">
         <button [ngClass]="selectedTab !== 'image' ? 'mat-flat-button' : 'mat-stroked-button'" (click)="_toggleTab()">Info</button>
         <button [ngClass]="selectedTab === 'image' ? 'mat-flat-button' : 'mat-stroked-button'" (click)="_toggleTab()">Image</button>
     </div>
+</div>
+<div mat-dialog-content class="creation-wrapper">
+    
     <form class='character-creation-form' [formGroup]="characterForm" *ngIf="selectedTab === 'info'" >
         <div class=icon-info-wrapper>        
             <section class="info-section">
@@ -41,7 +44,7 @@
                     
                 <section class="form-field">
                     <label class="form-label">Available Tier</label>   
-                    <section class="tier-wrapper">              
+                    <section class="tier-wrapper">
                         <mat-checkbox 
                             *ngFor="let tier of tierList; let i = index" 
                             (change)="_updateAvailableTier($event)" 
@@ -52,8 +55,8 @@
                             {{tier}}
                         </mat-checkbox>        
                     </section>          
-                </section>            
-    
+                </section>  
+         
                 <div class="flex">
                     <mat-form-field>
                         <mat-label>Tier</mat-label>
@@ -66,31 +69,54 @@
                         <input matInput placeholder="Enter Character Title" (change)="_updateTitle($event)" [value]="currentTitle" >
                     </mat-form-field>      
                 </div>
+
+                <section>
+                    <label class="form-label">Ultimate Skill Type</label>
+                    <section class="ultimate-wrapper">
+                        <mat-radio-group (change)="_updateUltimateSkillType($event)" [value]="selectedUltimateType">
+                            <mat-radio-button value="three">
+                                3 (any)
+                            </mat-radio-button>
+                            <mat-radio-button value="threeL">
+                                3 (L)
+                            </mat-radio-button>
+                            <mat-radio-button value="threeI">
+                                3 (I)
+                            </mat-radio-button>
+                            <mat-radio-button value="four">
+                                4 
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </section>                   
+                </section>
+
             </section>
         </div>
         
         <section class="skill-section">
             <mat-tab-group mat-align-tabs="center" [@.disabled]="true">
-                <mat-tab 
-                    *ngFor="let skill of characterForm.get('skillSet')['controls'][selectedTier]['controls']; let i = index" 
-                    [label]="skill.value.type"               
-                >
-                    <ng-template mat-tab-label>
-                        <img src="../../../../assets/img/icon/{{skill.value.type}}.png" />
-                    </ng-template>
-                    <div class="skill-wrapper">
-                        <div class="name-wrapper">
-                            <mat-form-field>
-                                <mat-label>Name</mat-label>
-                                <input matInput placeholder="Enter Skill Name" (change)="_updateSkillName($event)" name={{i}} [value]="skill.value.name">                        
-                            </mat-form-field>   
-                            <button *ngIf="selectedTier === 'SSR'" class="clone-btn" type="button" mat-flat-button name={{i}} (click)="_cloneSkill(i)">Clone</button>
-                        </div>                    
-                        <mat-form-field class="description">              
-                            <textarea matInput rows="8" (change)="_updateSkillDescription($event)" name={{i}} [value]="skill.value.description"></textarea>
-                        </mat-form-field>
-                    </div>
-                </mat-tab>
+                <ng-container *ngFor="let skill of characterForm.get('skillSet')['controls'][selectedTier]['controls']; let i = index" >
+                    <mat-tab                       
+                        [label]="skill.value.type"
+                        *ngIf="['one', 'two', 'passive', 'advisor'].indexOf(skill.value.type) !== -1 || skill.value.type === selectedUltimateType"        
+                    >
+                        <ng-template mat-tab-label>
+                            <img src="../../../../assets/img/icon/{{skill.value.type}}.png" />
+                        </ng-template>
+                        <div class="skill-wrapper">
+                            <div class="name-wrapper">
+                                <mat-form-field>
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Enter Skill Name" (change)="_updateSkillName($event)" name={{i}} [value]="skill.value.name">                        
+                                </mat-form-field>   
+                                <button *ngIf="selectedTier === 'SSR'" class="clone-btn" color="primary" type="button" mat-flat-button name={{i}} (click)="_cloneSkill(i)">Clone</button>
+                            </div>                    
+                            <mat-form-field class="description">              
+                                <textarea matInput rows="8" (change)="_updateSkillDescription($event)" name={{i}} [value]="skill.value.description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </mat-tab>
+                </ng-container>               
             </mat-tab-group>
         </section>     
     </form>

@@ -2,6 +2,15 @@
 
 .mat-dialog-container {
     min-width: 900px;
+    .navigation {
+        justify-content: flex-end;
+        display: flex;
+        flex: 1; 
+        button {
+            height: 36px;
+            align-self: center;
+        }      
+    }
     .character-detail {
         .mat-form-field {
            flex: 1;       

@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
 //Module
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialComponentModule } from './material-component.module';
-import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from "ng2-file-upload";
 
 //Component 

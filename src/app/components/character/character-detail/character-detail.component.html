@@ -1,7 +1,12 @@
 <div *ngIf="character">
-    <h4 mat-dialog-title>{{character.titles[selectedTier]}}</h4>
+    <div mat-dialog-title>
+        <h4>{{character.titles[selectedTier]}}</h4>
+        <div class="navigation">
+            <button class="mat-flat-button" (click)="_editMode()">Edit</button>
+        </div>
+    </div>    
 
-    <form class='character-detail' mat-dialog-content>
+    <!-- <form class='character-detail' mat-dialog-content>
         <div class=icon-info-wrapper>
             <section class="icon-section">
                 <img src="../../../../assets/img/characters/{{character.id}}/{{selectedTier}}.png" />
@@ -58,18 +63,20 @@
         
         <section class="skill-section">
             <mat-tab-group mat-align-tabs="center" [@.disabled]="true">
-                <mat-tab 
-                    *ngFor="let skill of character.skillSet[selectedTier]" 
-                    [label]="skill.type"               
-                >
-                    <ng-template mat-tab-label>
-                        <img src="../../../../assets/img/icon/{{skill.type}}.png" />
-                    </ng-template>
-                    <div [innerHTML]="skill.description | skillRenderer:stat:skill"></div>                  
-                </mat-tab>
+                <ng-template *ngFor="let skill of character.skillSet[selectedTier]">
+                    <mat-tab 
+                        [label]="skill.type"     
+                        *ngIf="['one', 'two', 'passive', 'advisor'].indexOf(skill.type) !== -1 || skill.type === selectedUltimateType"          
+                    >
+                        <ng-template mat-tab-label>
+                            <img src="../../../../assets/img/icon/{{skill.type}}.png" />
+                        </ng-template>
+                        <div [innerHTML]="skill.description | skillRenderer:stat:skill"></div>                  
+                    </mat-tab>
+                </ng-template>               
             </mat-tab-group>
         </section>     
-    </form>
+    </form> -->
 
     <div class="btn-grp" mat-dialog-actions>
         <button type="button" mat-flat-button (click)="onNoClick()">Close</button>

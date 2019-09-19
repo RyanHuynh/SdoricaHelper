@@ -16,7 +16,7 @@ export namespace characterMetaData {
         name: "Gold",
         value: "Gold",
     }];
-    export const skillOptions = ["one", "two", "four", "passive", "advisor"];
+    export const skillOptions = ["one", "two", "three", "threeI", "threeL", "four", "passive", "advisor"];
     export const tierList = ["N", "R", "SR", "SSR", "Alt"];
 }
 
@@ -43,6 +43,10 @@ export interface ICharacter {
         SR: ISkill[],
         SSR: ISkill[],
         Alt: ISkill[],
+    },
+    ultimateType: {
+        normal: string,
+        alt: string,
     },
     tags: string[]
 }

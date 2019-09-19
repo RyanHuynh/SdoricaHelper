@@ -41,7 +41,7 @@ textarea {
     background-color: $altBackground;
     color: $fontPrimary;
     .mat-dialog-title {
-        display: block;
+        display: flex;
         padding: 15px;
         margin: 0;
         background-color: $primary;
@@ -50,6 +50,7 @@ textarea {
     .mat-dialog-content {
         padding: 20px;
         margin: 0;
+        max-height: 80vh;
     }
     .mat-dialog-actions {
         padding: 0 20px 20px;

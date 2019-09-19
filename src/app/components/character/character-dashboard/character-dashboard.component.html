@@ -1,13 +1,13 @@
-<mat-toolbar>
+<mat-toolbar class="toolbar">
     <mat-form-field>
         <input matInput type="text" placeholder="Search..." [(ngModel)]="searchString">
         <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
-    
-    <button mat-flat-button color="primary" (click)="_createNew()">New</button>
-    <button mat-flat-button (click)="_changeEditMode()">Edit Mode</button>
+    <div class="navigation">
+        <button mat-flat-button color="primary" (click)="_createNew()">New</button>
+    </div>
 </mat-toolbar>
 <div *ngIf="editMode">On Edit Mode</div>
 

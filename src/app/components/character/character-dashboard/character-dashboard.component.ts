@@ -33,7 +33,7 @@ export class CharacterDashboardComponent implements OnInit {
       if (data) {
         this._getCharacterList();
       }
-    });    
+    });
   }
   _changeEditMode() {
     this.editMode = !this.editMode;

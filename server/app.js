@@ -10,7 +10,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const characters = require('./routes/characters');
 const team = require('./routes/team');
-const characterService = require('./services/character.service');
 const app = express();
 
 const UPLOAD_DIR = './dist/assets/img/characters/';
@@ -26,8 +25,6 @@ var storage = multer.diskStorage({
   
 var upload = multer({ storage: storage })
 
-
-characterService.mock();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -59,8 +56,13 @@ const port = process.env.PORT || 3000;
  * Listen on provided port, on all network interfaces.
  */
 const server = http.createServer(app);
+
+const initDb = (Db) => {
+  Db.createCollection("characters", { autoIndex: false });
+}
 MongoClient.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err) return console.log(err)
   db = client.db('sdo');
+  initDb(db);
   server.listen(port, () => console.log(`API running on localhost:${port}`));
 })

@@ -1,7 +1,19 @@
+.toolbar {
+    .navigation {
+        justify-content: flex-end;
+        display: flex;
+        flex: 1; 
+        button {
+            height: 36px;
+            align-self: center;
+        }      
+    }
+}
 .character-container {
     display: flex;
     padding: 10px;
     margin: 10px 0;
+   
     .position-icon{
         height: 300px;
         width: 300px;

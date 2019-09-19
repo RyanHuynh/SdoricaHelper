@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import _ from 'lodash';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ISkill } from '../models/character.model';
+import { trigger } from '@angular/animations';
 
 const skillRegex = /<([^>]*)>([^<]*)<\/[^>]*>/gm;
 export const statusDictionary = {
@@ -52,10 +53,16 @@ const statusDescription = {
     dep: "Upon the end of self-turn, lose 10% current HP for each stack. 3 stacks max. Remove upon receive Heal.",
     dee: "Decrease skill power by 30% for each stack. 3 stacks max.",
     des: "Can't cast skill. Remove upon incoming damage skill.",
+
+    //SPECIAL
+    tl: "Before next self-turn, a character skill cannot be triggered a second time by this skill."
 }
 const skillType = {
     one: "1-orb skill",
     two: "2-orb skill",
+    threeI: "3-orb skill, I-shaped",
+    threeL: "3-orb skill, L-shaped",
+    three: "3-orb skill, any shape",
     four: "4-orb skill, squared",
     passive: "Passive skill",
     advisor: "Advisor skill"
@@ -135,6 +142,7 @@ export class SkillRenderer implements PipeTransform {
         }
         let m;
         let result = skill;
+        let triggerLimit = false;
         const statusUsed = [];
         while ((m = skillRegex.exec(skill)) !== null) {
 
@@ -143,6 +151,7 @@ export class SkillRenderer implements PipeTransform {
             }
             const match = m[0]
             const tag = m[1];
+            triggerLimit = tag === "tl";
             const tagName = statusDictionary[tag];
             const multiplier = m[2];
             if (tagName) {
@@ -159,6 +168,9 @@ export class SkillRenderer implements PipeTransform {
         _.uniq(statusUsed).forEach(s => {
             result += `<div class="status-description"><b>${statusDictionary[s]}: </b><span>${statusDescription[s]}</span></div>`;
         })
+        if (triggerLimit) {
+            result += `<div class="status-description"><b>Trigger Limit: </b><span>${statusDescription.tl}</span></div>`;
+        }
         return result;
     }
 }

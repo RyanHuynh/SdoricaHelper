@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from "@angular/material";
 import _ from 'lodash';
 
 import { characterMetaData, characterEndpoint } from '../../../models/character.model';
@@ -24,15 +24,21 @@ export class CharacterCreationComponent implements OnInit {
   currentTitle: string = "";
   level: number = 1;
   exceed: number = 0;
-  selectedTab: string = 'info';
+  selectedTab: string = 'info'; 
+  selectedUltimateType= "four";
   uploader:FileUploader = new FileUploader({});
+  dialogData = null;
 
   constructor(
     private charService: CharacterAPIService, 
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CharacterCreationComponent>,
     private characterUtil: CharacterUtilService,
-  ){}
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) data
+    ){
+      this.dialogData = data;
+    }
   ngOnInit() {  
     this.characterForm = this._createForm();
     this.tierList.forEach(t => {
@@ -43,7 +49,15 @@ export class CharacterCreationComponent implements OnInit {
           name: "",
         }))
       })      
-    })    
+    }) 
+    //Edit Mode
+    if (this.dialogData) {
+      this.charService.getCharacter(this.dialogData).subscribe((res) => {
+        if (res.success) {
+          this.characterForm.patchValue(res.data);
+        }
+      }) 
+    }
   }
   public hasBaseDropZoneOver:boolean = false;
   public hasAnotherDropZoneOver:boolean = false;
@@ -75,6 +89,10 @@ export class CharacterCreationComponent implements OnInit {
       availableTier: [[...this.tierList]],
       titles: this.fb.group({...titles}),
       skillSet: this.fb.group({...skillSet}),
+      ultimateType: this.fb.group({
+        normal: ['four'],
+        alt: ['four']
+      }),
       tags: [[]],
     })
   } 
@@ -103,6 +121,7 @@ export class CharacterCreationComponent implements OnInit {
   _selectTier(tier) {
     this.selectedTier = tier.value;
     this.currentTitle = (<FormGroup>this.characterForm.get('titles')).value[this.selectedTier];
+    this.selectedUltimateType = this.characterForm.get('ultimateType').value[this.selectedTier === "Alt" ? "alt" : "normal"];
   }
   _updateTitle(event) {    
     const { value } = event.target;
@@ -155,7 +174,10 @@ export class CharacterCreationComponent implements OnInit {
     const value = control.value;
     control.setValue(_.uniq(value.concat(newTags)));
   }
-
+  _updateUltimateSkillType({ value }) {
+    this.selectedUltimateType = value;
+    (<FormGroup>this.characterForm.get('ultimateType')).controls[this.selectedTier === "Alt" ? "alt" : "normal"].setValue(value);
+  }
   _submitForm() {
     const payload = this.characterForm.value;
     this.charService.saveCharacter(payload).subscribe((res) => {

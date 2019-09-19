@@ -5,6 +5,10 @@
     .navigation {
         justify-content: flex-end;
         display: flex;
+        flex: 1;
+        .mat-stroked-button {
+            border: none;
+        }
     }
     .character-creation-form {
         .mat-form-field {
@@ -44,7 +48,16 @@
                     .mat-checkbox {
                         margin-right: 15px;
                         .mat-checkbox-label {
-                            font-weight: bold;
+                            font-weight: 400;
+                        }
+                    }
+                }
+                .ultimate-wrapper {
+                    margin-top: 10px;
+                    .mat-radio-button {
+                        margin-right: 15px;
+                        .mat-radio-label-content {
+                            font-weight: normal;
                         }
                     }
                 }
@@ -54,6 +67,7 @@
             margin-top: 20px;
             .mat-tab-body-content {
                 display: flex;
+                padding-top: 10px;
                 textarea {
                     background-color: $textareaBackground;
                     padding: 10px;
@@ -63,6 +77,13 @@
                 .description {
                     .mat-form-field-underline {
                         display: none;
+                    }
+                    .mat-form-field-wrapper {
+                        padding-top: 0;                     
+                        border: 0;
+                        .mat-form-field-infix {
+                            padding: 0;
+                        }
                     }
                       
                 }                
